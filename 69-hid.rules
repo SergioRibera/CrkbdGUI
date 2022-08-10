@@ -1,0 +1,5 @@
+# HIDAPI/libusb
+SUBSYSTEMS=="usb", TAG+="uaccess"
+
+# HIDAPI/hidraw
+KERNEL=="hidraw*", TAG+="uaccess"
