@@ -1,5 +1,5 @@
 # HIDAPI/libusb
-SUBSYSTEMS=="usb", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="4653", ATTRS{idProduct}=="4d4d", TAG+="uaccess"
 
 # HIDAPI/hidraw
-KERNEL=="hidraw*", TAG+="uaccess"
+KERNEL=="hidraw*", ATTRS{idVendor}=="4653", ATTRS{idProduct}=="4d4d", TAG+="uaccess"

@@ -1,4 +1,5 @@
-use hidapi::DeviceInfo;
+#![allow(dead_code)]
+use hidapi_rusb::DeviceInfo;
 
 pub mod color;
 
@@ -9,6 +10,8 @@ pub const PRODUCT_ID: u16 = 0x4D4D;
 pub const USAGE_PAGE: u16 = 0xFF60;
 pub const USAGE_ID: u16 = 0x61;
 
+pub const RAW_EPSIZE: usize = 6;
+
 pub fn is_my_device(device: &DeviceInfo) -> bool {
     device.vendor_id() == VENDOR_ID
         && device.product_id() == PRODUCT_ID
@@ -17,5 +20,10 @@ pub fn is_my_device(device: &DeviceInfo) -> bool {
 }
 
 pub enum CommandType {
+    GetKeyboardValue = 0x01,
+    SetKeyboardValue = 0x02,
+    GetCurrentColor = 0x03,
     ChangeColor = 0x04,
+
+    GetCurrentColorFlag = 0x00,
 }
