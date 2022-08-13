@@ -1,4 +1,4 @@
-use std::{str::FromStr, time::Duration};
+use std::time::Duration;
 
 use clap::{Parser, Subcommand};
 use humantime::parse_duration;
@@ -13,12 +13,20 @@ pub struct Arguments {
     pub no_gui: bool,
     #[clap(short, long)]
     pub show_devices: bool,
-    #[clap(short, long)]
-    pub color: Option<HexData>,
+    #[clap(subcommand)]
+    pub color: Option<ColorArg>,
     #[clap(short, long, parse(try_from_str = parse_duration))]
     pub time: Option<Duration>,
-    #[clap(subcommand)]
-    pub type_color: Option<TypeColor>,
+}
+
+#[derive(Subcommand, Debug, Clone)]
+pub enum ColorArg {
+    Color {
+        a: HexData,
+        b: Option<HexData>,
+        #[clap(subcommand)]
+        type_color: Option<TypeColor>
+    },
 }
 
 #[derive(Clone, PartialEq, Debug)]
@@ -48,17 +56,4 @@ pub enum TypeColor {
     Single {
         index: u8
     },
-}
-
-impl FromStr for TypeColor {
-    type Err = String;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s.to_ascii_lowercase().as_str() {
-            "full" => Ok(TypeColor::Full),
-            "row" => Ok(TypeColor::Full),
-            "single" => Ok(TypeColor::Full),
-            _ => Err(clap::ErrorKind::InvalidValue.to_string())
-        }
-    }
 }
