@@ -26,7 +26,7 @@ pub fn get_current_color(device: &HidDevice, timeout: i32) -> Result<(Vec<u8>, u
 
             match device.read_timeout(buff, timeout) {
                 Ok(size) => Ok((buff.to_vec(), size)),
-                Err(e) => Err("Read Failed".to_string()),
+                Err(_) => Err("Read Failed".to_string()),
             }
         }
         Err(_) => Err("Not can send to device".to_string()),
