@@ -25,11 +25,11 @@ pub enum ColorArg {
         a: HexData,
         b: Option<HexData>,
         #[clap(subcommand)]
-        type_color: Option<TypeColor>
+        type_color: Option<TypeColor>,
     },
 }
 
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone, Debug)]
 pub struct HexData(Vec<u8>);
 
 impl HexData {
@@ -51,9 +51,9 @@ pub enum TypeColor {
     #[default]
     Full,
     Row {
-        index: u8
+        index: u8,
     },
     Single {
-        index: u8
+        index: u8,
     },
 }
