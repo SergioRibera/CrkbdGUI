@@ -4,7 +4,7 @@ use crate::{cmd::TypeColor, hid::RAW_EPSIZE};
 
 use super::CommandType;
 
-pub struct RGB {
+pub struct Rgb {
     pub r: u8,
     pub g: u8,
     pub b: u8,
@@ -52,7 +52,7 @@ pub fn send_color(
     data[0] = CommandType::ChangeColor as u8;
     data[1] = rgb_type_u8.0;
     data[2] = rgb_type_u8.1;
-    data[3] = *color.get(0).unwrap();
+    data[3] = *color.first().unwrap();
     data[4] = *color.get(1).unwrap();
     data[5] = *color.get(2).unwrap();
 
@@ -60,6 +60,6 @@ pub fn send_color(
 }
 
 #[allow(dead_code)]
-pub fn rgb_to_hex(rgb: RGB) -> String {
+pub fn rgb_to_hex(rgb: Rgb) -> String {
     format!("#{:02X}{:02X}{:02X}", rgb.r, rgb.g, rgb.b)
 }
